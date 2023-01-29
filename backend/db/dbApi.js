@@ -13,5 +13,6 @@ export const addErrorToLogs = (
     errorMessage,
     creationTime
   );
-  writeToFile(creationTime, error);
+
+  writeToFile(creationTime, JSON.stringify(error));
 };
