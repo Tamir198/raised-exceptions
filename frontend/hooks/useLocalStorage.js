@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const getItem = async (itemName) => {
-  return await JSON.parse(localStorage.getItem(itemName));
-};
-
-export const setItem = (itemName, value) => {
-  return localStorage.setItem(itemName, JSON.stringify(value));
-};
+import { getItem } from "../utils/localStorageUtil";
 
 export const useLocalStorage = (itemName) => {
   const [error, setError] = useState();
