@@ -1,5 +1,3 @@
 export const URLS = {
-  EXCEPTIONS: "/exceptions",
+  EXCEPTIONS: "/api/exceptions",
 };
-
-
