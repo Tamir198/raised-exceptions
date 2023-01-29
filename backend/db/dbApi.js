@@ -16,6 +16,5 @@ export const addErrorToLogs = (
     detailedCreationTime
   );
 
-  console.log(JSON.stringify(error));
   writeToFile(creationTime, JSON.stringify(error));
 };

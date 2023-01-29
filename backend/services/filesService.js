@@ -1,3 +1,4 @@
+import { log } from "console";
 import fs from "fs";
 import path from "path";
 
@@ -7,7 +8,8 @@ export const writeToFile = async (fileName, newLog) => {
     //TODO check how I can save this file into the logs directory
 
     await fs.promises.appendFile(`${fileName}.txt`, newLog + "\n\n");
-    return "Error log added successfully";
+    console.log("Error log added successfully");
+    return ;
   } catch (err) {
     console.log(err);
     return "Something went wrong";
