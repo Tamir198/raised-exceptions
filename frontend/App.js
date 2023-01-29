@@ -8,9 +8,10 @@ import { ExceptionModel } from "./models/exceptionModel.js";
 import { logCurrentExceptions } from "./services/exceptionLoggerService.js";
 import { useLoggerExceptions } from "./hooks/useLoggerExceptions.js";
 import { useLocalStorage } from "./hooks/useLocalStorage.js";
+import { VALUES } from "./constants/values.js";
 
 export default function App() {
-  const error = useLocalStorage("errors");
+  const error = useLocalStorage(VALUES.LOCAL_STORAGE_ERR_KEY);
 
   console.log(error);
 
