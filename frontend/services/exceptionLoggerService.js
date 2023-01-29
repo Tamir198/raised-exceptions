@@ -7,6 +7,7 @@ export const logCurrentExceptions = async (errors) => {
       errors,
     });
 
+    
     console.log("This is res");
     console.log(res);
   } catch (error) {

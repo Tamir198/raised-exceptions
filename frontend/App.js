@@ -4,29 +4,17 @@ import { Button, StyleSheet, Text, View } from "react-native";
 
 import axios from "axios";
 
-import { ExceptionModel } from "./models/exceptionModel";
+import { ExceptionModel } from "./models/exceptionModel.js";
 import { logCurrentExceptions } from "./services/exceptionLoggerService.js";
 import { useLoggerExceptions } from "./hooks/useLoggerExceptions.js";
+import { useLocalStorage } from "./hooks/useLocalStorage.js";
 
 export default function App() {
-  const errors = [
-    {
-      errorName: "Can't find variable: setState",
-      errorStack: "This is the error stack",
-      errorMessage: "This ie error errorMessage",
-      creationTime: "29-3-2020",
-      detailedCreationTime:
-        "Sun Jan 29 2023 16:23:06 GMT+0200 (Israel Standard Time)",
-    },
-    {
-      errorName: "Can't find variable: setState",
-      errorStack: "This is the error stack",
-      errorMessage: "This ie error errorMessage",
-      creationTime: "29-3-2021",
-      detailedCreationTime:
-        "Sun Jan 29 2023 16:23:06 GMT+0200 (Israel Standard Time)",
-    },
-  ];
+  const error = useLocalStorage("errors");
+
+  console.log(error);
+
+  useLoggerExceptions(error);
 
   const handleButtonClick = () => {
     try {
@@ -48,67 +36,11 @@ export default function App() {
     }
   };
 
-  useLoggerExceptions(errors);
-
-  // useEffect(() => {
-  //   // setInterval(() => {
-  //   //TODO get and save this errors in a file, use this use effect send recent error
-  //   //Clear the errors array after sending them
-  //   //Handle click + send the errors to the server - currently network error
-  //   //
-  //   if (errors.length > 0) {
-  //     logCurrentExceptions(errors);
-  //   }
-  //   // }, 6000);
-  // }, []);
-
-  async function testAxios() {
-    let data = JSON.stringify({
-      errors: [
-        {
-          errorName: "Can't find variable: setState",
-          errorStack: "This is the error stack",
-          errorMessage: "This ie error errorMessage",
-          creationTime: "29-3-2020",
-          detailedCreationTime:
-            "Sun Jan 29 2023 16:23:06 GMT+0200 (Israel Standard Time)",
-        },
-        {
-          errorName: "Can't find variable: setState",
-          errorStack: "This is the error stack",
-          errorMessage: "This ie error errorMessage",
-          creationTime: "29-3-2021",
-          detailedCreationTime:
-            "Sun Jan 29 2023 16:23:06 GMT+0200 (Israel Standard Time)",
-        },
-      ],
-    });
-
-    var config = {
-      method: "post",
-      url: "http://localhost:9000/api/exceptions",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
-  // testAxios();
-
   return (
     <View style={styles.container}>
-      <Text>Test!</Text>
+      <Text>Click me to generate errors</Text>
       <StatusBar style="auto" />
-      <Button title="Generate exception " onPress={testAxios} />
+      <Button title="Generate exception" onPress={handleButtonClick} />
     </View>
   );
 }

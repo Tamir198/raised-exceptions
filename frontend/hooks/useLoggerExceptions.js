@@ -3,8 +3,9 @@ import { logCurrentExceptions } from "../services/exceptionLoggerService.js";
 
 export const useLoggerExceptions = (errors) => {
   useEffect(() => {
-    if (errors.length > 0) {
+    console.log(errors);
+    if (errors && errors.length > 0) {
       logCurrentExceptions(errors);
     }
-  }, []);
+  }, [errors]);
 };
