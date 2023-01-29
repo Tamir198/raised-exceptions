@@ -5,14 +5,17 @@ export const addErrorToLogs = (
   errorName,
   errorStack,
   errorMessage,
-  creationTime
+  creationTime,
+  detailedCreationTime
 ) => {
   const error = new ErrorModel(
     errorName,
     errorStack,
     errorMessage,
-    creationTime
+    creationTime,
+    detailedCreationTime
   );
 
+  console.log(JSON.stringify(error));
   writeToFile(creationTime, JSON.stringify(error));
 };
