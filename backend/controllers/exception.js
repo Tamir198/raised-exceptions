@@ -4,7 +4,6 @@ export const saveExceptions = async (req, res) => {
   const exceptions = req.body.errors;
 
   try {
-    //TODO check why I am getting this once as array and once as {exceptions: []}
     await exceptions.forEach(
       ({
         errorName,

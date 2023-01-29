@@ -7,13 +7,14 @@ import { useLoggerExceptions } from "./hooks/useLoggerExceptions.js";
 import { useLocalStorage } from "./hooks/useLocalStorage.js";
 import { VALUES } from "./constants/values.js";
 
-import { addItem } from "./utils/localStorageUtil.js";
+import { addItem, getItem } from "./utils/localStorageUtil.js";
+import { useEffect } from "react";
 
 export default function App() {
   const error = useLocalStorage(VALUES.LOCAL_STORAGE_ERR_KEY);
   useLoggerExceptions(error);
 
-  const handleButtonClick = async () => {
+  const generateNewException = async () => {
     try {
       console.log(setState());
     } catch (error) {
@@ -29,19 +30,26 @@ export default function App() {
         fullDate
       );
 
-      console.dir(newException);
-
       await addItem(VALUES.LOCAL_STORAGE_ERR_KEY, newException);
-      //TODO after every item added - 
-      // logCurrentExceptions(JSON.stringify({ errors: JSON.stringify(errors) }));
     }
   };
+
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      let errors = await getItem("errors");
+      if (errors) {
+        logCurrentExceptions(errors);
+      }
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <View style={styles.container}>
       <Text>Click me to generate errors</Text>
       <StatusBar style="auto" />
-      <Button title="Generate exception" onPress={handleButtonClick} />
+      <Button title="Generate exception" onPress={generateNewException} />
     </View>
   );
 }
