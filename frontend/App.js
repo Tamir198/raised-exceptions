@@ -1,8 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-
-import axios from "axios";
 
 import { ExceptionModel } from "./models/exceptionModel.js";
 import { logCurrentExceptions } from "./services/exceptionLoggerService.js";
@@ -12,9 +9,6 @@ import { VALUES } from "./constants/values.js";
 
 export default function App() {
   const error = useLocalStorage(VALUES.LOCAL_STORAGE_ERR_KEY);
-
-  console.log(error);
-
   useLoggerExceptions(error);
 
   const handleButtonClick = () => {
