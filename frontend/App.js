@@ -5,7 +5,8 @@ import { Button, StyleSheet, Text, View } from "react-native";
 import axios from "axios";
 
 import { ExceptionModel } from "./models/exceptionModel";
-import { logCurrentExceptions } from "./services/exceptionLoggerServie";
+import { logCurrentExceptions } from "./services/exceptionLoggerService.js";
+import { useLoggerExceptions } from "./hooks/useLoggerExceptions.js";
 
 export default function App() {
   const errors = [
@@ -47,13 +48,19 @@ export default function App() {
     }
   };
 
-  useEffect(() => {
-    // setInterval(() => {
-    if (errors.length > 0) {
-      logCurrentExceptions(errors);
-    }
-    // }, 6000);
-  }, []);
+  useLoggerExceptions(errors);
+
+  // useEffect(() => {
+  //   // setInterval(() => {
+  //   //TODO get and save this errors in a file, use this use effect send recent error
+  //   //Clear the errors array after sending them
+  //   //Handle click + send the errors to the server - currently network error
+  //   //
+  //   if (errors.length > 0) {
+  //     logCurrentExceptions(errors);
+  //   }
+  //   // }, 6000);
+  // }, []);
 
   async function testAxios() {
     let data = JSON.stringify({
