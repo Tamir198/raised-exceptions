@@ -12,6 +12,7 @@ import { useEffect } from "react";
 
 export default function App() {
   const error = useLocalStorage(VALUES.LOCAL_STORAGE_ERR_KEY);
+
   useLoggerExceptions(error);
 
   const generateNewException = async () => {
@@ -36,11 +37,11 @@ export default function App() {
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      let errors = await getItem("errors");
+      let errors = await getItem(VALUES.LOCAL_STORAGE_ERR_KEY);
       if (errors) {
         logCurrentExceptions(errors);
       }
-    }, 10000);
+    }, VALUES.FILE_INTERVALS);
 
     return () => clearInterval(interval);
   }, []);
