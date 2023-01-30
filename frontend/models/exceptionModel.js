@@ -1,15 +1,15 @@
-export class ErrorModel {
+export class ExceptionModel {
   constructor(
     errorName,
     errorStack,
     errorMessage,
-    creationTime = new Date(),
+    creationTime,
     detailedCreationTime
   ) {
-    this.creationTime = creationTime;
-    this.errorMessage = errorMessage;
     this.errorName = errorName;
     this.errorStack = errorStack;
+    this.errorMessage = errorMessage;
+    this.creationTime = creationTime;
     this.detailedCreationTime = detailedCreationTime;
   }
 }
