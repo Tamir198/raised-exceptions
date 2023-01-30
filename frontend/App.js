@@ -1,50 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import { Button, StyleSheet, Text, View } from "react-native";
 
-import { ExceptionModel } from "./models/exceptionModel.js";
-import { logCurrentExceptions } from "./services/exceptionLoggerService.js";
+import { generateNewException } from "./utils/generateNewException.js";
+
 import { useLoggerExceptions } from "./hooks/useLoggerExceptions.js";
 import { useLocalStorage } from "./hooks/useLocalStorage.js";
-import { VALUES } from "./constants/values.js";
+import { useIntervalLogger } from "./hooks/useIntervalLogger.js";
 
-import { addItem, getItem } from "./utils/localStorageUtil.js";
-import { useEffect } from "react";
+import { VALUES } from "./constants/values.js";
 
 export default function App() {
   const error = useLocalStorage(VALUES.LOCAL_STORAGE_ERR_KEY);
 
   useLoggerExceptions(error);
-
-  const generateNewException = async () => {
-    try {
-      console.log(setState());
-    } catch (error) {
-      const { name, message, stack } = error;
-      const fullDate = new Date();
-      const shortDate = fullDate.toDateString().replaceAll(" ", "-");
-
-      const newException = new ExceptionModel(
-        name,
-        stack,
-        message,
-        shortDate,
-        fullDate
-      );
-
-      await addItem(VALUES.LOCAL_STORAGE_ERR_KEY, newException);
-    }
-  };
-
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      let errors = await getItem(VALUES.LOCAL_STORAGE_ERR_KEY);
-      if (errors) {
-        logCurrentExceptions(errors);
-      }
-    }, VALUES.FILE_INTERVALS);
-
-    return () => clearInterval(interval);
-  }, []);
+  useIntervalLogger(VALUES.FILE_INTERVALS);
 
   return (
     <View style={styles.container}>
