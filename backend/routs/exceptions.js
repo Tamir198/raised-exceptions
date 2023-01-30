@@ -5,6 +5,6 @@ import { saveExceptions } from "../controllers/exception.js";
 
 import { URLS } from "../constants/url.js";
 
-router.post("/api/exceptions", saveExceptions);
+router.post(URLS.EXCEPTIONS, saveExceptions);
 
 export default router;

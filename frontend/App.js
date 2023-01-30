@@ -20,7 +20,7 @@ export default function App() {
     } catch (error) {
       const { name, message, stack } = error;
       const fullDate = new Date();
-      const shortDate = fullDate.toLocaleDateString();
+      const shortDate = fullDate.toDateString().replaceAll(" ", "-");
 
       const newException = new ExceptionModel(
         name,

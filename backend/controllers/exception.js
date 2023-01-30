@@ -22,7 +22,6 @@ export const saveExceptions = async (req, res) => {
       }
     );
   } catch (error) {
-    console.log("Whyyyyyyyy ");
     console.log(error);
   }
 
